@@ -25,6 +25,13 @@ namespace Infrastructure.Repositories
             return await _dbContext.Clientes.AnyAsync(c => c.CPF == cpf);
         }
 
+        public async Task<Cliente?> ObterPorIdAsync(long id)
+        {
+            return await _dbContext.Clientes
+                  .Include(c => c.ContaGrafica)
+                  .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
         public async Task SalvarAlteracoesAsync()
         {
             await _dbContext.SaveChangesAsync();

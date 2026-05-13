@@ -28,5 +28,24 @@ namespace Presentation.Controllers
                 return BadRequest(new { erro = ex.Message, codigo = "ERRO_ADESAO" });
             }
         }
+
+        [HttpPut("{clienteId}/valor-mensal")]
+        public async Task<IActionResult> AlterarValorMensal(long clienteId, [FromBody] AlterarValorMensalRequest request)
+        {
+            try
+            {
+                var response = await _service.AtualizarValorMensalAsync(clienteId, request);
+
+                return Ok(response);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound(new { erro = "Cliente não encontrado.", codigo = "CLIENTE_NAO_ENCONTRADO" });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { erro = ex.Message, codigo = ex.ParamName });
+            }
+        }
     }
 }

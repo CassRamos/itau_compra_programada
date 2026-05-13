@@ -26,14 +26,23 @@
             DataAdesao = DateTime.UtcNow;
         }
 
-        public void AlterarValorMensal(decimal novoValor)
+        public decimal AlterarValorMensal(decimal novoValor)
         {
-            if (novoValor < 100)
+            if (novoValor <= 0)
             {
-                throw new ArgumentException("O valor mensal mínimo é de R$ 100,00 ");
+                throw new ArgumentException("O valor mensal deve ser maior que zero.");
             }
 
+            if (novoValor < 20)
+            {
+                throw new ArgumentException("O valor mensal mínimo é de R$ 20,00 ");
+            }
+
+            var valorAnterior = ValorMensal;
+
             ValorMensal = novoValor;
+
+            return valorAnterior;
         }
 
         public void SolicitarSaida()
