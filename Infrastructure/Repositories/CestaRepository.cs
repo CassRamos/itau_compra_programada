@@ -28,7 +28,7 @@ namespace Infrastructure.Repositories
         }
         public async Task DesativarCestaAtualAsync()
         {
-        var cestaAtiva = await ObterCestaAtivaAsync();
+            var cestaAtiva = await ObterCestaAtivaAsync();
 
             if (cestaAtiva != null)
             {
@@ -39,6 +39,14 @@ namespace Infrastructure.Repositories
         public async Task SalvarAlteracoesAsync()
         {
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<CestaTopFive>> ObterHistoricoCestasAsync()
+        {
+            return await _dbContext.CestaTopFive
+                .Include(c => c.Itens)
+                .OrderByDescending(c => c.DataCriacao)
+                .ToListAsync();
         }
     }
 }

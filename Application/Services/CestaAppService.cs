@@ -46,5 +46,37 @@ namespace Application.Services
                 mensagem
                 );
         }
+
+        public async Task<CestaDetailResponse?> ObterCestaAtualAsync()
+        {
+            var cesta = await _repository.ObterCestaAtivaAsync();
+
+            if (cesta is null) return null;
+
+            return MapToDetailResponse(cesta);
+        }
+
+        public async Task<IEnumerable<CestaDetailResponse>> ObterHistoricoCestasAsync()
+        {
+            var historico = await _repository.ObterHistoricoCestasAsync();
+
+            return historico.Select(MapToDetailResponse);
+
+        }
+
+        private static CestaDetailResponse MapToDetailResponse(CestaTopFive cesta)
+        {
+            var itensDto = cesta.Itens
+                .Select(i => new ItemCestaResponse(i.Ticker, i.Percentual))
+                .ToList();
+
+            return new CestaDetailResponse(
+                cesta.Id,
+                cesta.Nome,
+                cesta.Ativa,
+                cesta.DataCriacao,
+                cesta.DataDesativacao,
+                itensDto);
+        }
     }
 }

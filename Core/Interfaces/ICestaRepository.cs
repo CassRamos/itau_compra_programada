@@ -8,5 +8,6 @@ namespace Core.Interfaces
         Task<CestaTopFive?> ObterCestaAtivaAsync();
         Task DesativarCestaAtualAsync();
         Task SalvarAlteracoesAsync();
+        Task<IEnumerable<CestaTopFive>> ObterHistoricoCestasAsync();
     }
 }

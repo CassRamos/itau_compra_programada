@@ -15,6 +15,27 @@ namespace Presentation.Controllers
             _service = service;
         }
 
+        [HttpGet("cesta/atual")]
+        public async Task<IActionResult> ObterCestaAtual()
+        {
+            var response = await _service.ObterCestaAtualAsync();
+
+            if (response is null)
+            {
+                return NotFound(new { erro = "Nenhuma cesta de recomendação ativa no momento" });
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet("cesta/historico")]
+        public async Task<IActionResult> ObterHistoricoCestas()
+        {
+            var response = await _service.ObterHistoricoCestasAsync();
+
+            return Ok(response);
+        }
+
         [HttpPost("cesta")]
         public async Task<IActionResult> CadastrarCesta([FromBody] CestaRequest request)
         {
