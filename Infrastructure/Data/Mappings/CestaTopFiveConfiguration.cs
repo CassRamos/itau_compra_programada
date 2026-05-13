@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data.Mappings
 {
-    internal class CestaTopFiveConfiguration : IEntityTypeConfiguration<CestaTopFive>
+    internal class CestaTopFiveConfiguration : IEntityTypeConfiguration<CestaRecomendacao>
     {
-        public void Configure(EntityTypeBuilder<CestaTopFive> builder)
+        public void Configure(EntityTypeBuilder<CestaRecomendacao> builder)
         {
             builder.ToTable("CestasRecomendacao");
 

@@ -12,6 +12,7 @@ namespace Core.Entities
 
         // Navigation property
         public Cliente Cliente { get; private set; }
-
+        public IReadOnlyCollection<Custodia> Custodias => _custodias.AsReadOnly();
+        private readonly List<Custodia> _custodias = new();
     }
 }

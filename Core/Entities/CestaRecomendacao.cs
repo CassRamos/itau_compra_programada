@@ -1,6 +1,6 @@
 ﻿namespace Core.Entities
 {
-    public class CestaTopFive
+    public class CestaRecomendacao
     {
         public long Id { get; private set; }
         public string Nome { get; private set; }
@@ -11,9 +11,9 @@
         public readonly List<ItemCesta> _itens = new List<ItemCesta>();
         public IReadOnlyCollection<ItemCesta> Itens => _itens.AsReadOnly();
 
-        protected CestaTopFive() { }
+        protected CestaRecomendacao() { }
 
-        public CestaTopFive(string nome, List<ItemCesta> itens)
+        public CestaRecomendacao(string nome, List<ItemCesta> itens)
         {
             if (string.IsNullOrWhiteSpace(nome))
 

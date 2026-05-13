@@ -4,10 +4,10 @@ namespace Core.Interfaces
 {
     public interface ICestaRepository
     {
-        Task AdicionarAsync(CestaTopFive cesta);
-        Task<CestaTopFive?> ObterCestaAtivaAsync();
+        Task AdicionarAsync(CestaRecomendacao cesta);
+        Task<CestaRecomendacao?> ObterCestaAtivaAsync();
         Task DesativarCestaAtualAsync();
         Task SalvarAlteracoesAsync();
-        Task<IEnumerable<CestaTopFive>> ObterHistoricoCestasAsync();
+        Task<IEnumerable<CestaRecomendacao>> ObterHistoricoCestasAsync();
     }
 }

@@ -7,7 +7,7 @@
         public string Ticker { get; private set; }
         public decimal Percentual { get; private set; }
 
-        public CestaTopFive Cesta { get; private set; }
+        public CestaRecomendacao Cesta { get; private set; }
 
         protected ItemCesta() { }
 

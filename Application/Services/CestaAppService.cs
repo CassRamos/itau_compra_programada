@@ -28,7 +28,7 @@ namespace Application.Services
                 .Select(i => new ItemCesta(i.Ticker, i.Percentual))
                 .ToList();
 
-            var novaCesta = new CestaTopFive(request.Nome, itensDominio);
+            var novaCesta = new CestaRecomendacao(request.Nome, itensDominio);
 
             await _repository.AdicionarAsync(novaCesta);
             await _repository.SalvarAlteracoesAsync();
@@ -64,7 +64,7 @@ namespace Application.Services
 
         }
 
-        private static CestaDetailResponse MapToDetailResponse(CestaTopFive cesta)
+        private static CestaDetailResponse MapToDetailResponse(CestaRecomendacao cesta)
         {
             var itensDto = cesta.Itens
                 .Select(i => new ItemCestaResponse(i.Ticker, i.Percentual))

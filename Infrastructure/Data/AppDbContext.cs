@@ -8,10 +8,13 @@ namespace Infrastructure.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
 
-        public DbSet<CestaTopFive> CestaTopFive { get; set; }
+        public DbSet<CestaRecomendacao> CestaTopFive { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<ContaGrafica> ContasGraficas { get; set; }
+        public DbSet<Custodia> Custodias { get; set; }
+        public DbSet<Distribuicao> Distribuicoes { get; set; }
         public DbSet<ItemCesta> ItensCesta { get; set; }
+        public DbSet<OrdemCompra> OrdensCompra { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

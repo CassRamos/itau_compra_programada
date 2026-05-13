@@ -14,13 +14,13 @@ namespace Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task AdicionarAsync(CestaTopFive cesta)
+        public async Task AdicionarAsync(CestaRecomendacao cesta)
         {
             await _dbContext.CestaTopFive.AddAsync(cesta);
         }
 
 
-        public async Task<CestaTopFive?> ObterCestaAtivaAsync()
+        public async Task<CestaRecomendacao?> ObterCestaAtivaAsync()
         {
             return await _dbContext.CestaTopFive
                 .Include(c => c.Itens)
@@ -41,7 +41,7 @@ namespace Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CestaTopFive>> ObterHistoricoCestasAsync()
+        public async Task<IEnumerable<CestaRecomendacao>> ObterHistoricoCestasAsync()
         {
             return await _dbContext.CestaTopFive
                 .Include(c => c.Itens)
