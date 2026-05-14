@@ -9,6 +9,7 @@ namespace Application.Dependencies
         {
             services.AddScoped<IClienteAppService, ClienteAppService>();
             services.AddScoped<ICestaAppService, CestaAppService>();
+            services.AddScoped<IMotorComprasService, MotorComprasAppService>();
 
             return services;
         }

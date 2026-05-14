@@ -14,5 +14,10 @@ namespace Core.Entities
         public Cliente Cliente { get; private set; }
         public IReadOnlyCollection<Custodia> Custodias => _custodias.AsReadOnly();
         private readonly List<Custodia> _custodias = new();
+
+        public void AdicionarCustodia(Custodia novaCustodia)
+        {
+            _custodias.Add(novaCustodia);
+        }
     }
 }

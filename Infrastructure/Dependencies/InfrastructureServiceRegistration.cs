@@ -19,7 +19,11 @@ namespace Infrastructure.Dependencies
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<ICestaRepository, CestaRepository>();
-
+            services.AddScoped<IDistribuicaoRepository, DistribuicaoRepository> ();
+            services.AddScoped<IOrdemCompraRepository, OrdemCompraRepository>();
+            services.AddScoped<ICotacaoService, MockCotacaoService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             return services;
         }
     }

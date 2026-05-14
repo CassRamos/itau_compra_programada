@@ -7,6 +7,7 @@ namespace Core.Interfaces
         Task AdicionarAsync(Cliente cliente);
         Task<bool> CpfJaExistente(string cpf);
         Task<Cliente?> ObterPorIdAsync(long id);
+        Task<IEnumerable<Cliente>> ObterClientesAtivos();
         Task SalvarAlteracoesAsync();
     }
 }

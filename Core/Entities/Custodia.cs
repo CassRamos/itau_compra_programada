@@ -21,5 +21,15 @@
             this.PrecoMedio = PrecoMedio;
             this.DataUltimaAtualizacao = DateTime.Now;
         }
+
+        public void AdicionarQuantidade(int novaQuantidade, decimal PrecoCompra)
+        {
+            var valorFinanceiroAtual = Quantidade * PrecoMedio;
+            var valorFinanceiroNovo = novaQuantidade * PrecoCompra;
+
+            Quantidade += novaQuantidade;
+            PrecoMedio = (valorFinanceiroAtual + valorFinanceiroNovo) / Quantidade;
+            DataUltimaAtualizacao = DateTime.Now;
+        }
     }
 }
