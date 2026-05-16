@@ -7,5 +7,6 @@ namespace Application.Services
         Task<AdesaoResponse> RealizarAdesaoAsync(AdesaoRequest request);
         Task<AlterarValorMensalResponse> AtualizarValorMensalAsync(long id, AlterarValorMensalRequest request);
         Task<PosicaoClienteResponse?> ObterPosicaoAsync(long id);
+        Task<SaidaProdutoResponse> SairProdutoAsync(long id);
     }
 }

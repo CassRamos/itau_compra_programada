@@ -1,4 +1,6 @@
-﻿namespace Core.Entities
+﻿using Core.Enums;
+
+namespace Core.Entities
 {
     public class Cliente
     {
@@ -24,6 +26,11 @@
             ValorMensal = valorMensal;
             Ativo = true;
             DataAdesao = DateTime.UtcNow;
+
+            var hash = Guid.NewGuid().ToString().Substring(0, 6).ToUpper();
+            var numeroConta = $"FLH-{hash}";
+
+            ContaGrafica = new ContaGrafica(numeroConta, TipoConta.Filhote);
         }
 
         public decimal AlterarValorMensal(decimal novoValor)
@@ -47,6 +54,9 @@
 
         public void SolicitarSaida()
         {
+            if (!Ativo)
+                throw new InvalidOperationException("O cliente já está inativo do produto");
+                
             Ativo = false;
         }
 

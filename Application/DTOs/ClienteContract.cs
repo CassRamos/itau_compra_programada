@@ -18,4 +18,11 @@
         decimal ValorMensalAgendado,
         List<AtivoPosicaoResponse> Ativos
     );
+
+    public record SaidaProdutoResponse(
+        long ClienteId,
+        string Nome,
+        bool Ativo,
+        DateTime DataSaida,
+        string Mensagem);
 }

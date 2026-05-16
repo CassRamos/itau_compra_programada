@@ -37,6 +37,7 @@ namespace Infrastructure.Repositories
         {
             return await _dbContext.Clientes
                   .Include(c => c.ContaGrafica)
+                    .ThenInclude(cg => cg.Custodias)
                   .FirstOrDefaultAsync(c => c.Id == id);
         }
 

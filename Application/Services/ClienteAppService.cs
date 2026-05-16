@@ -34,26 +34,64 @@ namespace Application.Services
 
         public async Task<PosicaoClienteResponse?> ObterPosicaoAsync(long id)
         {
-            throw new NotImplementedException();
-            //var cliente = await _repository.ObterPorIdAsync(id);
+            var cliente = await _repository.ObterPorIdAsync(id);
 
-            //if (cliente is null) return null;
+            if (cliente is null) return null;
 
+            var ativos = cliente.ContaGrafica?.Custodias
+                ?.Select(c => new AtivoPosicaoResponse(c.Ticker, c.Quantidade))
+                .ToList() ?? new List<AtivoPosicaoResponse>();
+
+            return new PosicaoClienteResponse(
+                cliente.Id,
+                cliente.Nome,
+                cliente.ValorMensal,
+                ativos
+                );
         }
 
         public async Task<AdesaoResponse> RealizarAdesaoAsync(AdesaoRequest request)
         {
-            if (await _repository.CpfJaExistente(request.Cpf))
-            {
+            if (await _repository.CpfJaExistente(request.CPF))
                 throw new Exception("CPF ja cadastrado no sistema.");
-            }
 
-            var cliente = new Cliente(request.Nome, request.Cpf, request.Email, request.ValorMensal);
+            var cliente = new Cliente(request.Nome, request.CPF, request.Email, request.ValorMensal);
 
             await _repository.AdicionarAsync(cliente);
             await _repository.SalvarAlteracoesAsync();
 
-            return new AdesaoResponse(cliente.Id, cliente.Nome, "Adesao realizada com sucesso.");
+            return new AdesaoResponse(
+                cliente.Id,
+                cliente.Nome,
+                cliente.CPF,
+                cliente.Email,
+                cliente.ValorMensal,
+                cliente.Ativo,
+                cliente.DataAdesao,
+                new ContaGraficaDto(
+                    cliente.ContaGrafica.Id,
+                    cliente.ContaGrafica.NumeroConta,
+                    cliente.ContaGrafica.Tipo,
+                    cliente.ContaGrafica.DataCriacao
+                )
+            );
+        }
+
+        public async Task<SaidaProdutoResponse> SairProdutoAsync(long id)
+        {
+            var cliente = await _repository.ObterPorIdAsync(id)
+                ?? throw new KeyNotFoundException("Cliente não encontrado");
+
+            cliente.SolicitarSaida();
+
+            await _repository.SalvarAlteracoesAsync();
+
+            return new SaidaProdutoResponse(
+                cliente.Id,
+                cliente.Nome,
+                cliente.Ativo,
+                DateTime.Now,
+                "Adesão encerrada. Sua posição em custódia foi mantida.");
         }
     }
 }

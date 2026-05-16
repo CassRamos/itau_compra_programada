@@ -15,6 +15,14 @@ namespace Presentation.Controllers
             _service = service;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ObterPosicao(long id)
+        {
+            var posicao = await _service.ObterPosicaoAsync(id);
+            if (posicao is null) return NotFound();
+            return Ok(posicao);
+        }
+
         [HttpPost("adesao")]
         public async Task<IActionResult> Adesao([FromBody] AdesaoRequest request)
         {

@@ -15,6 +15,15 @@ namespace Core.Entities
         public IReadOnlyCollection<Custodia> Custodias => _custodias.AsReadOnly();
         private readonly List<Custodia> _custodias = new();
 
+        protected ContaGrafica() { }
+
+        public ContaGrafica(string numeroConta, TipoConta tipo)
+        {
+            NumeroConta = numeroConta;
+            Tipo = tipo;
+            DataCriacao = DateTime.Now;
+        }
+
         public void AdicionarCustodia(Custodia novaCustodia)
         {
             _custodias.Add(novaCustodia);
