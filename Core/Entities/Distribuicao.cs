@@ -15,14 +15,14 @@
 
         protected Distribuicao() { }
 
-        public Distribuicao(long ordemCompraId, long custodiaFilhoteId, string ticker, int quantidade, decimal precoUnitario)
+        public Distribuicao(long ordemCompraId, Custodia custodia, string ticker, int quantidade, decimal precoUnitario)
         {
-            this.OrdemCompraId = ordemCompraId;
-            this.CustodiaFilhoteId = custodiaFilhoteId;
-            this.Ticker = ticker.ToUpper();
-            this.Quantidade = quantidade;
-            this.PrecoUnitario = precoUnitario;
-            this.DataDistribuicao = DateTime.Now;
+            OrdemCompraId = ordemCompraId;
+            CustodiaFilhote = custodia;
+            Ticker = ticker;
+            Quantidade = quantidade;
+            PrecoUnitario = precoUnitario;
+            DataDistribuicao = DateTime.Now;
         }
     }
 }

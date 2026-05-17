@@ -7,10 +7,12 @@ namespace Application.Services
     internal class CestaAppService : ICestaAppService
     {
         private readonly ICestaRepository _repository;
+        private readonly IRebalanceamentoAppService _rebalanceamentoService;
 
-        public CestaAppService(ICestaRepository repository)
+        public CestaAppService(ICestaRepository repository, IRebalanceamentoAppService rebalanceamentoService)
         {
             _repository = repository;
+            _rebalanceamentoService = rebalanceamentoService;
         }
 
         public async Task<CestaResponse> CadastrarCestaAsync(CestaRequest request)
@@ -33,9 +35,11 @@ namespace Application.Services
             await _repository.AdicionarAsync(novaCesta);
             await _repository.SalvarAlteracoesAsync();
 
+            await _rebalanceamentoService.ExecutarRebalanceamentoPorMudancaAsync();
+
             string mensagem = rebalanceamentoDisparado
                 ? "Cesta atualizada. Rebalanceamento disparado."
-                : "Primeira cesta cadastrada com suceso";
+                : "Primeira cesta cadastrada com suceso";   
 
             return new CestaResponse(
                 novaCesta.Id,

@@ -9,10 +9,12 @@ namespace Presentation.Controllers
     public class AdminController : ControllerBase
     {
         private readonly ICestaAppService _service;
+        private readonly IRebalanceamentoAppService _rebalanceamentoAppService;
 
-        public AdminController(ICestaAppService service)
+        public AdminController(ICestaAppService service, IRebalanceamentoAppService rebalanceamentoAppService)
         {
             _service = service;
+            _rebalanceamentoAppService = rebalanceamentoAppService;
         }
 
         [HttpGet("cesta/atual")]
@@ -62,7 +64,21 @@ namespace Presentation.Controllers
                     detalhe = ex.Message
                 });
             }
-
         }
+
+        [HttpPost("rebalanceamento/desvio")]
+        public async Task<IActionResult> ExecutarRebalanceamentoPorDesvio()
+        {
+            try
+            {
+                await _rebalanceamentoAppService.ExecutarRebalanceamentoPorDesvioAsync();
+                return Ok(new { mensagem = "Rebalanceamento por desvio executado com sucesso." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { erro = ex.Message });
+            }
+        }
+
     }
 }

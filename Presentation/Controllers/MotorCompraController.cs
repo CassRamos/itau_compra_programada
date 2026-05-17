@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using Application.DTOs;
+using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
@@ -7,20 +8,20 @@ namespace Presentation.Controllers
     [Route("api/[controller]")]
     public class MotorCompraController : ControllerBase
     {
-        private readonly IMotorComprasService _motorComprasService;
+        private readonly IMotorComprasAppService _motorComprasService;
 
-        public MotorCompraController(IMotorComprasService motorComprasService)
+        public MotorCompraController(IMotorComprasAppService motorComprasService)
         {
             _motorComprasService = motorComprasService;
         }
 
-        [HttpPost("motor/executar")]
-        public async Task<IActionResult> ExecutarMotor()
+        [HttpPost("motor/executar-compra")]
+        public async Task<IActionResult> ExecutarMotor([FromBody] ExecutarMotorRequest request)
         {
             try
             {
-                await _motorComprasService.ExecutarMotorService();
-                return Ok(new { mensagem = "Motor executado com sucesso! Ordens e distribuições criadas." });
+                var response = await _motorComprasService.ExecutarMotorService(request);
+                return Ok(response);
             }
             catch (InvalidOperationException ex)
             {
